@@ -1,20 +1,57 @@
-Welcome to Reqres Automation
+# Reqres Automation
 
-This project was made with SerenityBDD, Screenplay and RestAssured over Java runtime
+This project is an automation implementation for https://reqres.in/
 
-Requirements:
-- java 1.8 (desirable)
-- JAVA_HOME environment variable configured
+## Features
 
-To run this project you have to options:\n
-    1. If you have gradle cli you only need to execute on your cmd this:
-        gradle clean test -PENVURL="https://reqres.in"
-    2. If you dont have gradle cli please go to https://gradle.org/install/ or you can use the gradle wrapper executing this:
-        windows: gradlew.bat clean test -PENVURL="https://reqres.in"
-        linux ./gradlew clean test -PENVURL="https://reqres.in"
+- User oriented evidences
+- Easy to run
+- Jenkinsfile to run on your jenkins server with podtemplate
+- using screenplay patten
 
-After run ends the evidences are going to be on the project path under target/site/serenity/index.html
+This text you see here is *actually- written in Markdown! To get a feel
+for Markdown's syntax, type some text into the left window and
+watch the results in the right.
 
-Enjoy it!!
+## Tech Stack
+- [Java] - HTML enhanced for web apps!
+- [Gradle] - awesome web-based text editor
+- [SerenityBDD framework] - Markdown parser done right. Fast and easy to extend.
 
-https://giphy.com/gifs/enjoy-eddie-murphy-3o6vXNLzXdW4sbFRGo
+
+## Run
+
+To run this project you have three options:
+
+1. If you have gradle cli you only need to execute on your cmd this:
+    gradle clean test -PENVURL="https://reqres.in"
+
+```sh
+gradle clean test -PENVURL="https://reqres.in"
+```
+
+2. If you dont have gradle cli please go to https://gradle.org/install/ or you can use the gradle wrapper executing this:
+
+```sh
+gradlew.bat clean test -PENVURL="https://reqres.in"
+```
+or
+```sh
+./gradlew clean test -PENVURL="https://reqres.in"
+```
+3. If you have docker you can run with:
+```sh
+docker build -t reqres:1.0 .
+docker run --name reqresrun reqres:1.0
+docker cp reqresrun:/usr/src/automation/target/site/serenity .
+```
+and go to the folder serenity and open index.html
+
+## Notification
+If you have slack you can change the slack webhook on run.sh file, for this example the format is  this one:
+![alt text](https://github.com/boya678/reqres_automation/blob/master/evidences/SlackNotify.jpg)
+
+#Evidences:
+
+- the jenkins evidences are on evidences folder on project path
+- the SerenityBDD evidences are on the project path under target/site/serenity/index.htmlor if you executed with docker are on current path serenity/index.html
