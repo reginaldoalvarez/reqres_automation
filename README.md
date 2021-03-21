@@ -6,7 +6,7 @@ Requirements:
 - java 1.8 (desirable)
 - JAVA_HOME environment variable configured
 
-To run this project you have to options:
+To run this project you have to options:\n
     1. If you have gradle cli you only need to execute on your cmd this:
         gradle clean test -PENVURL="https://reqres.in"
     2. If you dont have gradle cli please go to https://gradle.org/install/ or you can use the gradle wrapper executing this:
