@@ -1,4 +1,4 @@
-			@Regression
+			@Regression2
 			Feature: as a user i want an Api(s) to retrieve the user´s information 
 			
 			@GetUSersIdCheckData

@@ -47,6 +47,14 @@ docker cp reqresrun:/usr/src/automation/target/site/serenity .
 ```
 and go to the folder serenity and open index.html
 
+## Parallel execution
+
+- is is being controlled by gradle on build.gradle file with:
+
+ maxParallelForks = Runtime.runtime.availableProcessors()
+
+- the parallel jenkins option would make a two reports and two junit results. that is a problem.
+
 ## Notification
 - If you have slack you can change the slack webhook on run.sh file, for this example the format is  this one:
 ![alt text](https://github.com/boya678/reqres_automation/blob/master/evidences/SlackNotify.jpg)

@@ -58,6 +58,7 @@ test {
 
     }   
     testLogging.showStandardStreams = true
+    maxParallelForks = Runtime.runtime.availableProcessors()
     systemProperties System.getProperties()
 }
 

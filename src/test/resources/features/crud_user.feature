@@ -1,4 +1,4 @@
-			@Regression
+			@Regression1
 			Feature: as a user i want an Api(s) to create, delete and update user´s information 
 			
 			@CRUDCreateUserCheckCode
