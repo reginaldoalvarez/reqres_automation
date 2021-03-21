@@ -48,8 +48,11 @@ docker cp reqresrun:/usr/src/automation/target/site/serenity .
 and go to the folder serenity and open index.html
 
 ## Notification
-If you have slack you can change the slack webhook on run.sh file, for this example the format is  this one:
+- If you have slack you can change the slack webhook on run.sh file, for this example the format is  this one:
 ![alt text](https://github.com/boya678/reqres_automation/blob/master/evidences/SlackNotify.jpg)
+
+- There is a lot of ways to nofity for example jenkins has plugin for discord, slack, etc. but in this case i used curl with and slack webhook.
+
 
 #Evidences:
 
