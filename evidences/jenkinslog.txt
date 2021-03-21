@@ -1,0 +1,915 @@
+Started by user Jenkins Admin
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1
+[Normal][jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1][Scheduled] Successfully assigned jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1 to docker-desktop
+[Normal][jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1][Pulled] Container image "tevolvers/jnlp-docker:1.1" already present on machine
+[Normal][jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1][Created] Created container jnlp
+[Normal][jenkins/reqres-automation-5-2hfqf-ppf2g-4hnt1][Started] Started container jnlp
+Agent reqres-automation-5-2hfqf-ppf2g-4hnt1 is provisioned from template Reqres_automation_5-2hfqf-ppf2g
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    buildUrl: "http://jenkins:8080/job/Reqres_automation/5/"
+    runUrl: "job/Reqres_automation/5/"
+  labels:
+    jenkins/jenkins-jenkins-agent: "true"
+    jenkins/label-digest: "ce24c0029f40293ac2d9c906b51b56b1f8030877"
+    jenkins/label: "Reqres_automation_5-2hfqf"
+  name: "reqres-automation-5-2hfqf-ppf2g-4hnt1"
+spec:
+  containers:
+  - args:
+    - "********"
+    - "reqres-automation-5-2hfqf-ppf2g-4hnt1"
+    env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-agent:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "reqres-automation-5-2hfqf-ppf2g-4hnt1"
+    - name: "JENKINS_NAME"
+      value: "reqres-automation-5-2hfqf-ppf2g-4hnt1"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins:8080/"
+    image: "tevolvers/jnlp-docker:1.1"
+    imagePullPolicy: "IfNotPresent"
+    name: "jnlp"
+    resources:
+      limits: {}
+      requests: {}
+    tty: false
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    kubernetes.io/os: "linux"
+  restartPolicy: "Never"
+  volumes:
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on reqres-automation-5-2hfqf-ppf2g-4hnt1 in /home/jenkins/agent/workspace/Reqres_automation
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (checkout)
+[Pipeline] git
+The recommended git tool is: NONE
+using credential github-ssh-jenkins
+Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@5eed1ba6; decorates RemoteLauncher[hudson.remoting.Channel@7a400a43:JNLP4-connect connection from 10.1.0.36/10.1.0.36:36280] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+Cloning the remote Git repository
+Cloning repository git@github.com:boya678/reqres_automation.git
+ > git init /home/jenkins/agent/workspace/Reqres_automation # timeout=10
+Fetching upstream changes from git@github.com:boya678/reqres_automation.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_SSH to set credentials 
+ > git fetch --tags --force --progress -- git@github.com:boya678/reqres_automation.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 25a333b48551fd92ef8e6edbc340b3f78dcc4ce4 (refs/remotes/origin/master)
+ > git config remote.origin.url git@github.com:boya678/reqres_automation.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 25a333b48551fd92ef8e6edbc340b3f78dcc4ce4 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master 25a333b48551fd92ef8e6edbc340b3f78dcc4ce4 # timeout=10
+Commit message: "dockerfile change"
+ > git rev-list --no-walk 25a333b48551fd92ef8e6edbc340b3f78dcc4ce4 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run integration tests)
+[Pipeline] sh
++ docker build -t reqres:1.0 .
+Sending build context to Docker daemon  4.291MB
+
+Step 1/6 : FROM gradle:6.8.3-jdk8
+ ---> 4d69d47be92b
+Step 2/6 : COPY . /usr/src/automation
+ ---> 613a45fbf88e
+Step 3/6 : WORKDIR /usr/src/automation
+Removing intermediate container 2f38d8564cfb
+ ---> 88f6fc5f438b
+Step 4/6 : RUN gradle clean build -x test
+ ---> Running in 7f3216ddb09c
+
+Welcome to Gradle 6.8.3!
+
+Here are the highlights of this release:
+ - Faster Kotlin DSL script compilation
+ - Vendor selection for Java toolchains
+ - Convenient execution of tasks in composite builds
+ - Consistent dependency resolution
+
+For more details see https://docs.gradle.org/6.8.3/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :clearReports
+> Task :clean UP-TO-DATE
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :assemble
+
+> Task :checkOutcomes
+Checking serenity results for null in directory /usr/src/automation/target/site/serenity
+
+> Task :check
+> Task :build
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.8.3/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 43s
+4 actionable tasks: 3 executed, 1 up-to-date
+Removing intermediate container 7f3216ddb09c
+ ---> 362e6f4ab7df
+Step 5/6 : RUN chmod -R 777 /usr/src/automation
+ ---> Running in ef1e9f48536e
+Removing intermediate container ef1e9f48536e
+ ---> d8c54285695d
+Step 6/6 : CMD [ "./run.sh" ]
+ ---> Running in 75fbd998e8c8
+Removing intermediate container 75fbd998e8c8
+ ---> b9eade55b45e
+Successfully built b9eade55b45e
+Successfully tagged reqres:1.0
+[Pipeline] sh
++ docker run --name reqresrun5 reqres:1.0
+
+Welcome to Gradle 6.8.3!
+
+Here are the highlights of this release:
+ - Faster Kotlin DSL script compilation
+ - Vendor selection for Java toolchains
+ - Convenient execution of tasks in composite builds
+ - Consistent dependency resolution
+
+For more details see https://docs.gradle.org/6.8.3/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :clearReports
+> Task :clean
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :assemble
+> Task :compileTestJava
+> Task :processTestResources
+> Task :testClasses
+
+> Task :test
+
+com.appgate.regres.runners.CucumberTestSuite STANDARD_OUT
+    22:36:57.786 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:36:58.450 [Test worker] INFO   - 
+
+    -------------------------------------------------------------------------------------
+         _______. _______ .______       _______ .__   __.  __  .___________.____    ____ 
+        /       ||   ____||   _  \     |   ____||  \ |  | |  | |           |\   \  /   / 
+       |   (----`|  |__   |  |_)  |    |  |__   |   \|  | |  | `---|  |----` \   \/   /  
+        \   \    |   __|  |      /     |   __|  |  . `  | |  |     |  |       \_    _/   
+    .----)   |   |  |____ |  |\  \----.|  |____ |  |\   | |  |     |  |         |  |     
+    |_______/    |_______|| _| `._____||_______||__| \__| |__|     |__|         |__|    
+                                                                                     
+     News and tutorials at http://www.serenity-bdd.info                                  
+     Documentation at https://wakaleo.gitbooks.io/the-serenity-book/content/             
+     Join the Serenity Community on Gitter: https://gitter.im/serenity-bdd/serenity-core 
+     Serenity BDD Support and Training at http://serenity-bdd.info/#/trainingandsupport  
+    -------------------------------------------------------------------------------------
+
+    22:36:58.457 [Test worker] INFO   - Test Suite Started: as a user i want an Api(s) to create, delete and update user´s information
+    22:36:58.492 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+    22:36:58.539 [Test worker] INFO   - Test Suite Started: as a user i want an Api(s) to retrieve the user´s information
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #1(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDCreateUserCheckCode
+    Scenario Outline: Create user check status codes [90m# src/test/resources/features/crud_user.feature:13[0m
+    22:36:58.824 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:36:58.913 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Create user check status codes(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;create-user-check-status-codes)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+    22:37:07.075 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Create user check status codes
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #2(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDCreateUserCheckCode
+    Scenario Outline: Create user check status codes [90m# src/test/resources/features/crud_user.feature:14[0m
+    22:37:07.086 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [31mThen [0m[31mhe should get the status code [0m[31m[1m400[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+          [31mjava.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+    [0m
+    22:37:07.824 [Test worker] ERROR  - 
+               __  _____ _____ ____ _____   _____ _    ___ _     _____ ____  
+      _       / / |_   _| ____/ ___|_   _| |  ___/ \  |_ _| |   | ____|  _ \ 
+     (_)_____| |    | | |  _| \___ \ | |   | |_ / _ \  | || |   |  _| | | | |
+      _|_____| |    | | | |___ ___) || |   |  _/ ___ \ | || |___| |___| |_| |
+     (_)     | |    |_| |_____|____/ |_|   |_|/_/   \_\___|_____|_____|____/ 
+              \_\                                                            
+
+    Create user check status codes
+    --------------------------------------------------------------------------
+    22:37:07.950 [Test worker] ERROR  -     Test failed at step: someone should see a value that is equal to: <400>
+    22:37:07.951 [Test worker] ERROR  -     Expecting a value that is equal to: <400>But got...........................: <201>
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #2(as a user i want an Api FAILED
+    java.lang.AssertionError at PerformableExpectations.kt:21
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #3(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDCreateUserCheckCode
+    Scenario Outline: Create user check status codes [90m# src/test/resources/features/crud_user.feature:15[0m
+    22:37:07.963 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [31mThen [0m[31mhe should get the status code [0m[31m[1m400[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+          [31mjava.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+    [0m
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #3(as a user i want an Api FAILED
+    java.lang.AssertionError at PerformableExpectations.kt:21
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #4(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDCreateUserCheckCode
+    Scenario Outline: Create user check status codes [90m# src/test/resources/features/crud_user.feature:16[0m
+    22:37:08.598 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [31mThen [0m[31mhe should get the status code [0m[31m[1m400[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+          [31mjava.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+    [0m
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check status codes #4(as a user i want an Api FAILED
+    java.lang.AssertionError at PerformableExpectations.kt:21
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Create user check data(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDCreateUser
+    Scenario: Create user check data                         [90m# src/test/resources/features/crud_user.feature:20[0m
+    22:37:09.185 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:09.188 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Create user check data(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;create-user-check-data)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    22:37:09.838 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Create user check data
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Delete a user(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDDeleteUser
+    Scenario: Delete a user                                  [90m# src/test/resources/features/crud_user.feature:29[0m
+    22:37:09.844 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:09.845 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Delete a user(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;delete-a-user)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+      [32mWhen [0m[32mhe deletes the user created[0m                       [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heDeletesTheUserCreated()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m204[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+    22:37:10.941 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Delete a user
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Delete a user an existent user(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDDeleteUserNoExistent
+    Scenario: Delete a user an existent user                 [90m# src/test/resources/features/crud_user.feature:41[0m
+    22:37:10.945 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:10.948 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Delete a user an existent user(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;delete-a-user-an-existent-user)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+      [32mWhen [0m[32mhe deletes the user created[0m                       [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heDeletesTheUserCreated()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m204[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mWhen [0m[32mhe deletes the user created[0m                       [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heDeletesTheUserCreated()[0m
+      [31mThen [0m[31mhe should get the status code [0m[31m[1m404[0m                 [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+          [31mjava.lang.AssertionError: 
+    Expecting a value that is equal to: <404>
+    But got...........................: <204>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 404(file:///usr/src/automation/src/test/resources/features/crud_user.feature:51)
+    [0m
+    22:37:12.495 [Test worker] ERROR  - 
+               __  _____ _____ ____ _____   _____ _    ___ _     _____ ____  
+      _       / / |_   _| ____/ ___|_   _| |  ___/ \  |_ _| |   | ____|  _ \ 
+     (_)_____| |    | | |  _| \___ \ | |   | |_ / _ \  | || |   |  _| | | | |
+      _|_____| |    | | | |___ ___) || |   |  _/ ___ \ | || |___| |___| |_| |
+     (_)     | |    |_| |_____|____/ |_|   |_|/_/   \_\___|_____|_____|____/ 
+              \_\                                                            
+
+    Delete a user an existent user
+    --------------------------------------------------------------------------
+    22:37:12.495 [Test worker] ERROR  -     Test failed at step: someone should see a value that is equal to: <404>
+    22:37:12.496 [Test worker] ERROR  -     Expecting a value that is equal to: <404>But got...........................: <204>
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Delete a user an existent user(as a user i want an Api FAILED
+    java.lang.AssertionError at PerformableExpectations.kt:21
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Updats user´s name and job(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDUpdateUser
+    Scenario: Updats user´s name and job                             [90m# src/test/resources/features/crud_user.feature:68[0m
+    22:37:12.503 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:12.505 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Updats user´s name and job(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;updats-user´s-name-and-job)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+    22:37:13.587 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Updats user´s name and job
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Update user check status codes #1(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDUpdateUserCheckStatusCode
+    Scenario Outline: Update user check status codes                 [90m# src/test/resources/features/crud_user.feature:85[0m
+    22:37:13.591 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:13.595 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    Update user check status codes(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;update-user-check-status-codes)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+    22:37:14.688 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Update user check status codes
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Update user check status codes #2(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDUpdateUserCheckStatusCode
+    Scenario Outline: Update user check status codes                 [90m# src/test/resources/features/crud_user.feature:86[0m
+    22:37:14.693 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+    22:37:16.006 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    Update user check status codes
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Update user check status codes #3(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDUpdateUserCheckStatusCode
+    Scenario Outline: Update user check status codes                 [90m# src/test/resources/features/crud_user.feature:87[0m
+    22:37:16.010 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.Update user check status codes #4(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDUpdateUserCheckStatusCode
+    Scenario Outline: Update user check status codes                 [90m# src/test/resources/features/crud_user.feature:88[0m
+    22:37:17.109 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+
+com.appgate.regres.runners.CucumberTestSuite > s) to create, delete and update user´s information.create a user, update and delete it(as a user i want an Api STANDARD_OUT
+
+    @Regression @CRUDE2E
+    Scenario: create a user, update and delete it                    [90m# src/test/resources/features/crud_user.feature:91[0m
+    22:37:18.077 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/crud_user.feature
+    22:37:18.081 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    create a user, update and delete it(as-a-user-i-want-an-api(s)-to-create--delete-and-update-user´s-information;create-a-user--update-and-delete-it)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                        [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe creates a user[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heCreatesAUser(com.appgate.regres.models.UserCreateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m201[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mAnd [0m[32mhe should get the response with the data requested[0m         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheResponseWithTheDataRequested()[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mWhen [0m[32mhe update the user last created user[0m                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heUpdateTheUserLastCreatedUser(com.appgate.regres.models.UserUpdateRequest)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the update response with the data requested[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUpdateResponseWithTheDataRequested()[0m
+      [32mWhen [0m[32mhe deletes the user created[0m                               [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heDeletesTheUserCreated()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m204[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+    22:37:19.666 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    create a user, update and delete it
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to retrieve the user´s information.get specific user data(as a user i want an Api STANDARD_OUT
+
+    @Regression @GetUSersIdCheckData
+    Scenario: get specific user data          [90m# src/test/resources/features/get_user.feature:5[0m
+    22:37:19.673 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+    22:37:19.674 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    get specific user data(as-a-user-i-want-an-api(s)-to-retrieve-the-user´s-information;get-specific-user-data)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+      [32mWhen [0m[32mhe searches the user with id [0m[32m[1m3[0m     [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heSearchesTheUserWithId(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m  [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+    Step argument class io.cucumber.core.gherkin.messages.GherkinMessagesDataTableArgument
+      [32mAnd [0m[32mhe should get the same user info[0m    [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheUserInfo(com.appgate.regres.models.User)[0m
+    22:37:20.484 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    get specific user data
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to retrieve the user´s information.get specific user data with no existet id(as a user i want an Api STANDARD_OUT
+
+    @Regression @GetUSersIdCheck404
+    Scenario: get specific user data with no existet id [90m# src/test/resources/features/get_user.feature:14[0m
+    22:37:20.497 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+    22:37:20.499 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    get specific user data with no existet id(as-a-user-i-want-an-api(s)-to-retrieve-the-user´s-information;get-specific-user-data-with-no-existet-id)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m           [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+      [32mWhen [0m[32mhe searches the user with id [0m[32m[1m2001[0m            [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heSearchesTheUserWithId(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m404[0m            [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+    22:37:21.011 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    get specific user data with no existet id
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to retrieve the user´s information.get all user data and check total users retrieved #1(as a user i want an Api STANDARD_OUT
+
+    @Regression @GetUSersCheckTotal
+    Scenario: get all user data and check total users retrieved       [90m# src/test/resources/features/get_user.feature:20[0m
+    22:37:21.015 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+    22:37:21.018 [Test worker] INFO   - 
+     _____ _____ ____ _____   ____ _____  _    ____ _____ _____ ____  
+    |_   _| ____/ ___|_   _| / ___|_   _|/ \  |  _ \_   _| ____|  _ \ 
+      | | |  _| \___ \ | |   \___ \ | | / _ \ | |_) || | |  _| | | | |
+      | | | |___ ___) || |    ___) || |/ ___ \|  _ < | | | |___| |_| |
+      |_| |_____|____/ |_|   |____/ |_/_/   \_\_| \_\|_| |_____|____/ 
+
+    get all user data and check total users retrieved(as-a-user-i-want-an-api(s)-to-retrieve-the-user´s-information;get-all-user-data-and-check-total-users-retrieved)
+    -------------------------------------------------------------------
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+      [32mWhen [0m[32mhe searches all users[0m                                      [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heSearchesAllUsers()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                          [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the same as user quantity as the field TOTAL[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheSameAsUserQuantityAsTheFieldTOTAL()[0m
+    22:37:22.761 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    get all user data and check total users retrieved
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to retrieve the user´s information.get all user data and check total users retrieved #2(as a user i want an Api STANDARD_OUT
+
+    @Regression @GetUSersCheckUsersPerPage
+    Scenario: get all user data and check total users retrieved          [90m# src/test/resources/features/get_user.feature:27[0m
+    22:37:22.764 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                            [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+      [32mWhen [0m[32mhe searches all users[0m                                         [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heSearchesAllUsers()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                             [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the same as user quantity as the field PER_PAGE[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheSameAsUserQuantityAsTheFieldPERPAGE()[0m
+    22:37:23.008 [Test worker] INFO   - 
+            __    _____ _____ ____ _____   ____   _    ____  ____  _____ ____  
+      _     \ \  |_   _| ____/ ___|_   _| |  _ \ / \  / ___|/ ___|| ____|  _ \ 
+     (_)_____| |   | | |  _| \___ \ | |   | |_) / _ \ \___ \\___ \|  _| | | | |
+      _|_____| |   | | | |___ ___) || |   |  __/ ___ \ ___) |___) | |___| |_| |
+     (_)     | |   |_| |_____|____/ |_|   |_| /_/   \_\____/|____/|_____|____/ 
+            /_/                                                                
+
+    get all user data and check total users retrieved
+    ----------------------------------------------------------------------------
+
+com.appgate.regres.runners.CucumberTestSuite > s) to retrieve the user´s information.get all user data and check total users retrieved #3(as a user i want an Api STANDARD_OUT
+
+    @Regression @GetUSersCheckUsersTotalPages
+    Scenario: get all user data and check total users retrieved             [90m# src/test/resources/features/get_user.feature:34[0m
+    22:37:23.014 [Test worker] INFO  i.c.core.plugin.SerenityReporter - Running feature from file:///usr/src/automation/src/test/resources/features/get_user.feature
+      [32mGiven [0m[32m[0m[32m[1msomeone [0m[32m needs to consume the api[0m                               [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.someoneSearchesTheUserAtPath(net.serenitybdd.screenplay.Actor)[0m
+      [32mWhen [0m[32mhe searches all users[0m                                            [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heSearchesAllUsers()[0m
+      [32mThen [0m[32mhe should get the status code [0m[32m[1m200[0m                                [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(java.lang.Integer)[0m
+      [32mThen [0m[32mhe should get the same as user quantity as the field TOTAL_PAGES[0m [90m# com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheSameAsUserQuantityAsTheFieldTOTALPAGES()[0m
+
+com.appgate.regres.runners.CucumberTestSuite STANDARD_OUT
+
+    [31mFailed scenarios:[0m
+    file:///usr/src/automation/src/test/resources/features/crud_user.feature:14 # Create user check status codes
+    file:///usr/src/automation/src/test/resources/features/crud_user.feature:15 # Create user check status codes
+    file:///usr/src/automation/src/test/resources/features/crud_user.feature:16 # Create user check status codes
+    file:///usr/src/automation/src/test/resources/features/crud_user.feature:41 # Delete a user an existent user
+
+    18 Scenarios ([31m4 failed[0m, [32m14 passed[0m)
+    93 Steps ([31m4 failed[0m, [32m89 passed[0m)
+    0m25.901s
+
+
+    java.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+
+    java.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+
+    java.lang.AssertionError: 
+    Expecting a value that is equal to: <400>
+    But got...........................: <201>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 400(file:///usr/src/automation/src/test/resources/features/crud_user.feature:10)
+
+    java.lang.AssertionError: 
+    Expecting a value that is equal to: <404>
+    But got...........................: <204>
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation.performAs(PerformableExpectations.kt:21)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs$accessor$QzIK5lPK(Unknown Source)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at net.thucydides.core.steps.StepInterceptor.invokeMethod(StepInterceptor.java:492)
+    	at net.thucydides.core.steps.StepInterceptor.executeTestStepMethod(StepInterceptor.java:472)
+    	at net.thucydides.core.steps.StepInterceptor.runTestStep(StepInterceptor.java:445)
+    	at net.thucydides.core.steps.StepInterceptor.runOrSkipMethod(StepInterceptor.java:201)
+    	at net.thucydides.core.steps.StepInterceptor.testStepResult(StepInterceptor.java:188)
+    	at net.thucydides.core.steps.StepInterceptor.intercept(StepInterceptor.java:76)
+    	at net.thucydides.core.steps.ProxyConfiguration$InterceptorDispatcher.intercept(ProxyConfiguration.java:51)
+    	at net.serenitybdd.screenplay.ensure.PerformableExpectation$ByteBuddy$jcC6dQYK.performAs(Unknown Source)
+    	at net.serenitybdd.screenplay.Actor.performTask(Actor.java:253)
+    	at net.serenitybdd.screenplay.Actor.perform(Actor.java:234)
+    	at net.serenitybdd.screenplay.Actor.attemptsTo(Actor.java:180)
+    	at com.appgate.regres.stepdefinitions.GeneralStepDefinitions.heShouldGetTheStatusCode(GeneralStepDefinitions.java:50)
+    	at ✽.he should get the status code 404(file:///usr/src/automation/src/test/resources/features/crud_user.feature:51)
+
+
+
+> Task :test FAILED
+
+18 tests completed, 4 failed
+
+> Task :aggregate
+Generating Serenity Reports for automation to directory file:///usr/src/automation/target/site/serenity/
+
+> Task :checkOutcomes
+Checking serenity results for automation in directory /usr/src/automation/target/site/serenity
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///usr/src/automation/build/reports/tests/test/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.8.3/userguide/command_line_interface.html#sec:command_line_warnings
+8 actionable tasks: 8 executed
+
+BUILD FAILED in 1m 32s
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0no_service
+100   130    0    10  100   120     14    171 --:--:-- --:--:-- --:--:--   185
+[Pipeline] sh
++ docker cp reqresrun5:/usr/src/automation/target .
+[Pipeline] sh
++ docker cp reqresrun5:/usr/src/automation/build .
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publish report)
+[Pipeline] publishHTML
+[htmlpublisher] Archiving HTML reports...
+[htmlpublisher] Archiving at BUILD level /home/jenkins/agent/workspace/Reqres_automation/target/site/serenity to /var/jenkins_home/jobs/Reqres_automation/builds/5/htmlreports/Serenity_20Report
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Finished: UNSTABLE
