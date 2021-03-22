@@ -63,6 +63,6 @@ and go to the folder serenity and open index.html
 
 
 #Evidences:
-
+- Exercise evidences on report.zip in evidences folder
 - the jenkins evidences are on evidences folder on project path
 - the SerenityBDD evidences are on the project path under target/site/serenity/index.htmlor if you executed with docker are on current path serenity/index.html
