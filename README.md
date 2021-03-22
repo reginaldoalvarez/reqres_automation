@@ -11,9 +11,9 @@ This project is an automation implementation for https://reqres.in/
 
 
 ## Tech Stack
-- [Java] - HTML enhanced for web apps!
-- [Gradle] - awesome web-based text editor
-- [SerenityBDD framework] - Markdown parser done right. Fast and easy to extend.
+- [Java] 
+- [Gradle] 
+- [SerenityBDD framework]
 
 
 ## Run
