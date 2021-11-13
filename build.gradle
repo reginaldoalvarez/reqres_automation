@@ -37,7 +37,7 @@ ext {
 
 dependencies {
     compile "ch.qos.logback:logback-classic:${logbackVersion}"
-
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
     testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
