@@ -16,6 +16,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
         features = "src/test/resources/features",
         glue = "com.appgate.regres.stepdefinitions",
 		snippets = SnippetType.CAMELCASE,
-		dryRun = false
+		dryRun = true,
+		tags = "@listUserMaximum"
 		)
 public class CucumberTestSuite {}
